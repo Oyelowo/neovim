@@ -145,7 +145,7 @@ return {
         ["<C-s>"] = { "actions.select", opts = { vertical = true } },
         -- Cmd + h clashes with my default moving to top or bottom pane
         -- So, switch to Cmd + m. And I already have an horizontal split
-        -- with just `-` but keep Cmd + m for now for redundancy
+        -- with just `\` but keep Cmd + m for now for redundancy
         -- ["<C-h>"] = { "actions.select", opts = { horizontal = true } },
         ["<C-m>"] = { "actions.select", opts = { horizontal = true } },
         ["<C-t>"] = { "actions.select", opts = { tab = true } },
