@@ -157,6 +157,7 @@ return {
         -- ["<C-l>"] = "actions.refresh",
         ["<C-r>"] = "actions.refresh",
         ["-"] = { "actions.parent", mode = "n" },
+        ["<BS>"] = { "actions.parent", mode = "n" },
         ["_"] = { "actions.open_cwd", mode = "n" },
         ["`"] = { "actions.cd", mode = "n" },
         ["~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
