@@ -6,27 +6,49 @@
 return {
   "AstroNvim/astrocommunity",
   { import = "astrocommunity.pack.lua" },
- -- NOTE: Never ever use neodim plugin, drags and slows down my editor
+  -- NOTE: Never ever use neodim plugin, drags and slows down my editor
   -- Add the community repository of plugin specifications
   -- example of importing a plugin, comment out to use it or add your own
   -- available plugins can be found at https://github.com/AstroNvim/astrocommunity
 
-  { import = "astrocommunity.pack.rust" },
-              --   assist = {
-              --   importEnforceGranularity = true,
-              --   importPrefix = "crate",
-              -- },
-              -- completion = {
-              --   postfix = {
-              --     enable = false,
-              --   },
-              -- },
-              -- inlayHints = {
-              --   lifetimeElisionHints = {
-              --     enable = true,
-              --     useParameterNames = true,
-              --   },
-              -- },
+  {
+    import = "astrocommunity.pack.rust",
+    opts = {
+      settings = {
+        ["rust-analyzer"] = {
+          cargo = {
+            features = "ssr", -- Enable the "ssr" feature
+          },
+          procMacro = {
+            enable = true,
+            ignored = {
+              leptos_macro = {
+                -- optional: --
+                "component",
+                "server",
+              },
+            },
+          },
+        },
+      },
+    },
+
+    assist = {
+      importEnforceGranularity = true,
+      importPrefix = "crate",
+    },
+    completion = {
+      postfix = {
+        enable = false,
+      },
+    },
+    inlayHints = {
+      lifetimeElisionHints = {
+        enable = true,
+        useParameterNames = true,
+      },
+    },
+  },
   { import = "astrocommunity.pack.zig" },
   { import = "astrocommunity.pack.cpp" },
   { import = "astrocommunity.pack.kotlin" },
@@ -79,10 +101,11 @@ return {
 
   -- Edit remotely
   { import = "astrocommunity.remote-development.distant-nvim" },
-  { import = "astrocommunity.remote-development.netman-nvim" },
+  -- This keeps crashing my nvim. Disable for now
+  -- { import = "astrocommunity.remote-development.netman-nvim" },
   { import = "astrocommunity.remote-development.nvim-sftp-sync" },
   --
--- lua/astrocommunity/code-runner
+  -- lua/astrocommunity/code-runner
   { import = "astrocommunity.code-runner.compiler-nvim" },
   { import = "astrocommunity.code-runner.executor-nvim" },
   -- { import = "astrocommunity.code-runner.sniprun" },
@@ -91,8 +114,8 @@ return {
   -- Does not work and disables telescope. Not good
   -- { import = "astrocommunity.fuzzy-finder.fzf-lua" },
 
--- lua/astrocommunity/lsp/lsp-lens-nvim
--- actions-preview-nvim
+  -- lua/astrocommunity/lsp/lsp-lens-nvim
+  -- actions-preview-nvim
   { import = "astrocommunity.lsp.lsp-lens-nvim" },
   { import = "astrocommunity.lsp.actions-preview-nvim" },
   -- Archived. Probably stop using
@@ -118,7 +141,7 @@ return {
   -- { import = "astrocommunity.scrolling.satellite-nvim" },
 
   -- sticky scroll context
-  -- When you have comment above at least in python, nvim-treesitter-context covers the function name 
+  -- When you have comment above at least in python, nvim-treesitter-context covers the function name
   -- and can get frustrating. Disable it and maybe file an issue
   -- { import = "astrocommunity.editing-support.nvim-treesitter-context" },
   -- { import = "astrocommunity.editing-support.nvim-context-vt" },
@@ -134,7 +157,8 @@ return {
 
   { import = "astrocommunity.file-explorer.telescope-file-browser-nvim" },
   { import = "astrocommunity.file-explorer.oil-nvim" },
-  { "oil.nvim",
+  {
+    "oil.nvim",
     opts = {
       -- add any opts here
       -- provider = "copilot",
@@ -152,7 +176,7 @@ return {
         ["<C-p>"] = "actions.preview",
         ["<C-c>"] = { "actions.close", mode = "n" },
         -- Cmd + l clashes with my default moving to left pane
-        -- So, switch to Cmd + r. And I already have moving to 
+        -- So, switch to Cmd + r. And I already have moving to
         -- left or right panes via just `|` but keep Cmd + r for now
         -- ["<C-l>"] = "actions.refresh",
         ["<C-r>"] = "actions.refresh",
@@ -167,11 +191,10 @@ return {
         ["g\\"] = { "actions.toggle_trash", mode = "n" },
       },
       use_default_keymaps = false,
-    }
+    },
   },
 
   { import = "astrocommunity.programming-language-support.csv-vim" },
-
 
   -- # Adds color to the window separator. Dont really like it. It
   -- doesnt move when window shifts
@@ -183,18 +206,17 @@ return {
   -- Looks terrible
   -- { import = "astrocommunity.icon.mini-icons" },
 
-
   -- Register
   -- Clipboard history. Find Copied text history
   { import = "astrocommunity.register.nvim-neoclip-lua" },
 
--- lua/astrocommunity/game/leetcode-nvim
+  -- lua/astrocommunity/game/leetcode-nvim
   {
     import = "astrocommunity.game.leetcode-nvim",
     opts = {
       lang = "python3",
       image_support = true,
-    }
+    },
   },
   -- {
   --   "leetcode.nvim",
@@ -323,16 +345,14 @@ return {
   { import = "astrocommunity.markdown-and-latex.vimtex" },
   { import = "astrocommunity.markdown-and-latex.render-markdown-nvim" },
 
-
-
   { import = "astrocommunity.quickfix.nvim-bqf" },
 
   -- { import = "astrocommunity.diagnostics.lsp_lines-nvim" },
   -- Introduces unnecessary noise to rust diagnostics, Probably already setup in astro default config
   { import = "astrocommunity.diagnostics.trouble-nvim" },
 
-    { import = "astrocommunity.media.img-clip-nvim" },
-    { import = "astrocommunity.media.image-nvim" },
+  { import = "astrocommunity.media.img-clip-nvim" },
+  { import = "astrocommunity.media.image-nvim" },
   { import = "astrocommunity.media.pets-nvim" },
 
   { import = "astrocommunity.terminal-integration.vim-tmux-navigator" },
@@ -342,7 +362,7 @@ return {
   -- { import = "astrocommunity.git.git-blame-nvim" },
   --
 
--- openingh-nvim
+  -- openingh-nvim
   -- { import = "astrocommunity.git.blame-nvim" },
   { import = "astrocommunity.git.diffview-nvim" },
   { import = "astrocommunity.git.gitgraph-nvim" },
@@ -356,12 +376,10 @@ return {
   { import = "astrocommunity.git.octo-nvim" },
   { import = "astrocommunity.git.openingh-nvim" },
 
-
-
   { import = "astrocommunity.colorscheme.vscode-nvim" },
-  { import = "astrocommunity.colorscheme.nightfox",        enabled = false },
-  { import = "astrocommunity.colorscheme.kanagawa",        enabled = false },
-  { import = "astrocommunity.colorscheme.rose-pine",       enabled = false },
+  { import = "astrocommunity.colorscheme.nightfox", enabled = false },
+  { import = "astrocommunity.colorscheme.kanagawa", enabled = false },
+  { import = "astrocommunity.colorscheme.rose-pine", enabled = false },
   { import = "astrocommunity.colorscheme.everforest" },
   { import = "astrocommunity.colorscheme.mini-base16" },
   -- { import = "astrocommunity.colorscheme.onigiri" },
@@ -407,12 +425,13 @@ return {
           model = "qwen2.5-coder",
         },
       },
-    }
+    },
   },
   { import = "astrocommunity.completion.copilot-lua-cmp" },
   { import = "astrocommunity.completion.copilot-lua" },
   --   -- further customize the options set by the community
-  { "copilot.lua",
+  {
+    "copilot.lua",
     opts = {
       suggestion = {
         keymap = {
@@ -430,6 +449,3 @@ return {
   { import = "astrocommunity.bars-and-lines.bufferline-nvim" },
   { import = "astrocommunity.bars-and-lines.dropbar-nvim" },
 }
-
-
-
